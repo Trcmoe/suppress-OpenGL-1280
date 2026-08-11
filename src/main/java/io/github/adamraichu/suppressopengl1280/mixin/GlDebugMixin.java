@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.client.gl.GlDebug;
+import com.mojang.blaze3d.opengl.GlDebug;
 
 @Mixin(GlDebug.class)
 public abstract class GlDebugMixin {
@@ -21,7 +21,7 @@ public abstract class GlDebugMixin {
 
   private static Logger LOGGER = LoggerFactory.getLogger("Suppress OpenGL Error 1280");
 
-  @Inject(at = @At(value = "HEAD"), method = "onDebugMessage", cancellable = true)
+  @Inject(at = @At(value = "HEAD"), method = "printDebugLog", cancellable = true)
   private static void suppressMessage(int source, int type, int id, int severity, int messageLength, long message,
       long l,
       CallbackInfo ci) {
