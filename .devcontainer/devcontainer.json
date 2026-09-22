@@ -1,15 +1,14 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/java
 {
-  "name": "Java 17, node, gh-cli",
-  "image": "mcr.microsoft.com/devcontainers/java:17",
+  "name": "Java 25, gh-cli",
+  "image": "mcr.microsoft.com/devcontainers/java:25",
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
-      "imageVariant": "17",
+      "imageVariant": "25",
       "installMaven": "true",
       "installGradle": "true"
     },
-    "ghcr.io/devcontainers/features/node": {},
     "ghcr.io/devcontainers/features/github-cli": {}
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
