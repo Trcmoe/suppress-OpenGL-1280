@@ -22,6 +22,12 @@ public abstract class GlDebugMixin {
       CallbackInfo ci) {
     ConfigOptions config = AutoConfig.getConfigHolder(ConfigOptions.class).getConfig();
 
+    if (source != GlDebugMessageSuppressor.GL_DEBUG_SOURCE_API
+        || type != GlDebugMessageSuppressor.GL_DEBUG_TYPE_ERROR
+        || !isSuppressionEnabled(config, id)) {
+      return;
+    }
+
     String messageText = MemoryUtil.memUTF8(message, messageLength);
     if (SUPPRESSOR.shouldSuppress(source, type, id, severity, messageText,
         errorId -> isSuppressionEnabled(config, errorId))) {
