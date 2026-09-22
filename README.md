@@ -1,9 +1,23 @@
-### Disclaimer: This mod does not actually fix any errors; it only prevents them from spamming the log
+# Suppress OpenGL Errors
 
-This mod prevents the OpenGL `GL_INVALID_ENUM` error from being logged more than once. If you know what that is, this is probably for you. If not, don't worry about it. This is a tool for people who read the debug log (mainly developers).
+> This mod does not fix OpenGL errors. It keeps repeated driver messages from spamming the log while preserving the first copy for diagnosis.
 
-Click [here](https://github.com/AdamRaichu/suppress-OpenGL-1280/wiki) for more information on what that error is.
+The mod watches OpenGL messages whose source is `API` and whose type is `ERROR`. For each enabled error ID, the first unique message is logged normally; only later messages with the same source, type, ID, severity, and text are suppressed. Different diagnostics that happen to share an ID remain visible.
 
-Since `v1.1.0`, it also suppresses `GL_INVALID_VALUE` and `GL_INVALID_OPERATION`. `v1.1.0` also adds a configuration screen, so be sure to download it if you still have `v1.0.0`.
+The following IDs are enabled by default and can be changed through the Mod Menu configuration screen:
 
-Since `v1.2.0`, it also suppresses error #2.
+- `2` (vendor-specific; historically reported by Blur)
+- `1280` (`GL_INVALID_ENUM`)
+- `1281` (`GL_INVALID_VALUE`)
+- `1282` (`GL_INVALID_OPERATION`)
+- `1286` (`GL_INVALID_FRAMEBUFFER_OPERATION`, which can occur in shader/framebuffer paths)
+
+`GL_OUT_OF_MEMORY` (`1285`) is intentionally never suppressed.
+
+## Minecraft 26.3 rendering backends
+
+Version 1.3.0 targets Fabric on Minecraft 26.3 and Java 25. It operates on Minecraft's RenderPearl OpenGL debug callback and is compatible with the OpenGL paths used by Sodium and Iris.
+
+The mod is intentionally inactive when Minecraft uses Vulkan or when Sodium creates a no-error OpenGL context, because those environments do not produce this OpenGL debug stream. Sodium's no-error context is hardware- and driver-dependent, so it does not make this mod redundant for every Sodium/Iris installation.
+
+See the [project wiki](https://github.com/AdamRaichu/suppress-OpenGL-1280/wiki) for more background on the original error.

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0 - 2026-09-23
+
+- Port to Minecraft 26.3, Fabric Loader 0.19.5, Java 25, and the new RenderPearl OpenGL backend.
+- Suppress only exact repeats of OpenGL API error messages, preserving distinct diagnostics that share an ID.
+- Add configurable suppression for error 1286 (`GL_INVALID_FRAMEBUFFER_OPERATION`) for shader/framebuffer log spam.
+- Never suppress non-error or non-API messages, including performance messages that reuse a configured ID.
+- Add unit tests for the suppression policy.
+- Remove the unused aggregate Fabric API dependency; Cloth Config still brings only the Fabric API modules it needs.
+- Update local and CI toolchains for Java 25 and current Gradle Actions.
+
 ## 1.2.1
 
 Fix the error in the language files which caused error #2 to show as error #1282 in the config files.
