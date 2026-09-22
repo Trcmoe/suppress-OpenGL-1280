@@ -1,6 +1,7 @@
 package io.github.adamraichu.suppressopengl1280.mixin;
 
 import io.github.adamraichu.suppressopengl1280.GlDebugMessageSuppressor;
+import io.github.adamraichu.suppressopengl1280.GpuBackendRuntime;
 import io.github.adamraichu.suppressopengl1280.config.ConfigOptions;
 import me.shedaniel.autoconfig.AutoConfig;
 
@@ -20,6 +21,12 @@ public abstract class GlDebugMixin {
   private static void suppressMessage(int source, int type, int id, int severity, int messageLength, long message,
       long l,
       CallbackInfo ci) {
+    // Do this before touching AutoConfig or the native message pointer. OpenGL callbacks can
+    // happen before RenderSystem has a device, hence an undetermined state remains permitted.
+    if (!GpuBackendRuntime.permitsRuntimeLogic()
+        || !GpuBackendRuntime.ensureConfigurationRegistered()) {
+      return;
+    }
     ConfigOptions config = AutoConfig.getConfigHolder(ConfigOptions.class).getConfig();
 
     if (source != GlDebugMessageSuppressor.GL_DEBUG_SOURCE_API

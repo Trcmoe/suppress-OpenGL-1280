@@ -12,7 +12,13 @@ import me.shedaniel.autoconfig.gui.registry.DefaultGuiRegistryAccess;
 public class ModMenuIntegration implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
+        if (!GpuBackendRuntime.permitsRuntimeLogic()) {
+            return ModMenuApi.super.getModConfigScreenFactory();
+        }
         return parent -> {
+            if (!GpuBackendRuntime.ensureConfigurationRegistered()) {
+                return null;
+            }
             @SuppressWarnings("unchecked")
             ConfigManager<ConfigOptions> manager = (ConfigManager<ConfigOptions>) AutoConfig.getConfigHolder(ConfigOptions.class);
             return new ConfigScreenProvider<>(manager, new DefaultGuiRegistryAccess(), parent).get();
