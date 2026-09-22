@@ -16,5 +16,8 @@ public class ConfigOptions implements ConfigData {
   public boolean suppress1282 = true;
 
   @ConfigEntry.Gui.Tooltip(count = 2)
+  public boolean suppress1286 = true;
+
+  @ConfigEntry.Gui.Tooltip(count = 2)
   public boolean suppress2 = true;
 }

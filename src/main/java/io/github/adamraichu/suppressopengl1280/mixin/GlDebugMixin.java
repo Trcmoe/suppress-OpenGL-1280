@@ -34,6 +34,7 @@ public abstract class GlDebugMixin {
       case 1280 -> config.suppress1280;
       case 1281 -> config.suppress1281;
       case 1282 -> config.suppress1282;
+      case 1286 -> config.suppress1286;
       case 2 -> config.suppress2;
       default -> false;
     };
