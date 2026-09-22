@@ -16,8 +16,12 @@ The following IDs are enabled by default and can be changed through the Mod Menu
 
 ## Minecraft 26.3 rendering backends
 
-Version 1.3.0 targets Fabric on Minecraft 26.3 and Java 25. It operates on Minecraft's RenderPearl OpenGL debug callback and is compatible with the OpenGL paths used by Sodium and Iris.
+Version 1.4.0 targets Fabric on Minecraft 26.3 and Java 25. It operates on Minecraft's RenderPearl OpenGL debug callback and is compatible with the OpenGL paths used by Sodium and Iris.
 
-The mod is intentionally inactive when Minecraft uses Vulkan or when Sodium creates a no-error OpenGL context, because those environments do not produce this OpenGL debug stream. Sodium's no-error context is hardware- and driver-dependent, so it does not make this mod redundant for every Sodium/Iris installation.
+After Minecraft creates its graphics device, the mod reads the selected backend from RenderPearl. OpenGL keeps the suppression feature and configuration active. Vulkan, or any future non-OpenGL backend, disables all suppression logic and skips configuration initialization. A single informational log entry records that decision.
+
+Fabric resolves mod metadata and mixins before Minecraft selects a graphics backend, so a mod cannot remove its own JAR from Fabric Loader at that point. “Disabled” therefore means that no OpenGL messages are read or filtered and no Cloth Config data is initialized; the mod may still appear in the loaded-mod list.
+
+The mod is also naturally inactive when Sodium creates a no-error OpenGL context, because that environment does not produce this OpenGL debug stream. Sodium's no-error context is hardware- and driver-dependent, so it does not make this mod redundant for every Sodium/Iris installation.
 
 See the [project wiki](https://github.com/AdamRaichu/suppress-OpenGL-1280/wiki) for more background on the original error.

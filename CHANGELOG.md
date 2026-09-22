@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 - 2026-09-23
+
+- Detect the graphics backend selected by Minecraft after RenderPearl initializes the GPU device.
+- Disable all OpenGL suppression logic on Vulkan and other non-OpenGL backends.
+- Skip Cloth Config registration on non-OpenGL backends and make an already-cached Mod Menu configuration factory inert.
+- Preserve OpenGL debug callbacks that can occur before Minecraft publishes the initialized graphics device.
+- Add tests for backend classification and one-way renderer state transitions.
+
 ## 1.3.0 - 2026-09-23
 
 - Port to Minecraft 26.3, Fabric Loader 0.19.5, Java 25, and the new RenderPearl OpenGL backend.
