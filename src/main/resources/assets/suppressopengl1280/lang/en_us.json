@@ -1,5 +1,5 @@
 {
-  "text.autoconfig.suppressopengl1280.title": "Suppress OpenGL Error 1280",
+  "text.autoconfig.suppressopengl1280.title": "Suppress OpenGL Errors",
   "text.autoconfig.suppressopengl1280.option.suppress1280": "Suppress error 1280",
   "text.autoconfig.suppressopengl1280.option.suppress1280.@Tooltip[0]": "Error details: GL_INVALID_ENUM",
   "text.autoconfig.suppressopengl1280.option.suppress1280.@Tooltip[1]": "Known causes: Overwolf FPS Overlay",
